@@ -31,12 +31,14 @@ jobs:
 
       - name: Run tests
         run: |
-          dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi/webapi.csproj
+          dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" webapi/webapi.csproj 2>&1 | tee test-output.txt
         env:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
         continue-on-error: true
         
-      - name: Print service container logs
-        run: |
-          /usr/bin/docker logs --details ${{ job.services.dynamodb.id }}
+      - name: Upload test output
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-output
+          path: test-output.txt
         if: always()
