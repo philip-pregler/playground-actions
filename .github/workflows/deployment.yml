@@ -24,12 +24,12 @@ jobs:
           dotnet-version: 6.0.x
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore testProject/testProject.csproj
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build --no-restore testProject/testProject.csproj
 
       - name: Run tests
-        run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName~DynamoDbTests
+        run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName~DynamoDbTests testProject/testProject.csproj
         env:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
