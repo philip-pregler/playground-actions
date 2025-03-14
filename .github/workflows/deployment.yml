@@ -44,3 +44,10 @@ jobs:
           name: test-results
           path: webapi/TestResults/*.trx
         if: always()
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: webapi/TestResults/*.trx
+        if: always()
