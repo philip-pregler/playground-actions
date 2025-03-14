@@ -38,14 +38,7 @@ jobs:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
         continue-on-error: true
 
-      - name: Publish Test Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: webapi/TestResults/*.trx
-        if: always()
-
-      - name: Upload Artifact
+      - name: Upload Test Results
         uses: actions/upload-artifact@v3
         with:
           name: test-results
