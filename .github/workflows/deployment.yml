@@ -2,7 +2,7 @@ name: Deployment
 
 on:
   push:
-    branches: [ main ]
+    branches: [ flows-luis ]
 
 jobs:
 
@@ -41,4 +41,4 @@ jobs:
           fi
         env:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
-        continue-on-error: true
+        continue-on-error: false
