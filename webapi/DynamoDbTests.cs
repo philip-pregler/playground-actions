@@ -14,7 +14,7 @@ namespace webapi
         {
             _dynamoDbClient = new AmazonDynamoDBClient(new AmazonDynamoDBConfig
             {
-                ServiceURL = Environment.GetEnvironment("DYNAMODB_ENDPOINT")
+                ServiceURL = Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
             });
         }
 
