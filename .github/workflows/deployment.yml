@@ -24,10 +24,10 @@ jobs:
           dotnet-version: 7.0.410
 
       - name: Install dependencies
-        run: dotnet restore testProject/testProject.csproj
+        run: dotnet restore testProject/DynamoDbTests.cs
 
       - name: Build
-        run: dotnet build --no-restore testProject/testProject.csproj
+        run: dotnet build --no-restore testProject/DynamoDbTests.cs
 
       - name: Run tests
         run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName~DynamoDbTests testProject/testProject.csproj
