@@ -33,3 +33,10 @@ jobs:
         run: dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" --filter FullyQualifiedName~DynamoDbTests webapi/webapi.csproj
         env:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
+          
+      - name: Publish Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: webapi/TestResults/*.trx
+        if: always()
