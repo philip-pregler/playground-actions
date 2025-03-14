@@ -21,10 +21,7 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
-          
-      - name: Display .NET version
-        run: dotnet --version
+          dotnet-version: 7.0.410
 
       - name: Install dependencies
         run: dotnet restore testProject/testProject.csproj
