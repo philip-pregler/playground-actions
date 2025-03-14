@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
-    <PackageReference Include="Amazon.DynamoDBv2" Version="3.7.101.24" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.101.24" />
     <PackageReference Include="Microsoft.VisualStudio.TestPlatform" Version="14.0.0" />
   </ItemGroup>
 
