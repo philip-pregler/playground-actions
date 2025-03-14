@@ -23,6 +23,9 @@ jobs:
         with:
           dotnet-version: 7.0.410
 
+      - name: Display .NET version
+        run: dotnet --version
+
       - name: Install dependencies
         run: dotnet restore webapi/webapi.csproj
 
@@ -35,9 +38,9 @@ jobs:
         env:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
         continue-on-error: true
-        
+
       - name: Upload test output
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: test-output
           path: test-output.txt
