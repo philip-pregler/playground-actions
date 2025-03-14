@@ -14,7 +14,7 @@ namespace webapi
         {
             _dynamoDbClient = new AmazonDynamoDBClient(new AmazonDynamoDBConfig
             {
-                ServiceURL = Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
+                ServiceURL = "http://localhost:8000"
             });
         }
 

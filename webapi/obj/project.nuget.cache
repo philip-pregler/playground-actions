@@ -1,11 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "+Mk+JBG/wxw=",
+  "dgSpecHash": "orr9oe4Sti0=",
   "success": true,
   "projectFilePath": "/Users/z0052jaz/RiderProjects/playground-actions/webapi/webapi.csproj",
   "expectedPackageFiles": [
-    "/Users/z0052jaz/.nuget/packages/microsoft.aspnetcore.openapi/9.0.2/microsoft.aspnetcore.openapi.9.0.2.nupkg.sha512",
-    "/Users/z0052jaz/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+    "/Users/z0052jaz/.nuget/packages/awssdk.core/3.7.103.16/awssdk.core.3.7.103.16.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/awssdk.dynamodbv2/3.7.101.24/awssdk.dynamodbv2.3.7.101.24.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/microsoft.visualstudio.testplatform/14.0.0/microsoft.visualstudio.testplatform.14.0.0.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/microsoft.netcore.app.ref/7.0.20/microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.20/microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/z0052jaz/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.20/microsoft.netcore.app.host.osx-arm64.7.0.20.nupkg.sha512"
   ],
   "logs": []
 }
