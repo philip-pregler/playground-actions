@@ -35,3 +35,8 @@ jobs:
         env:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
         continue-on-error: true
+        
+      - name: Print service container logs
+        run: |
+          /usr/bin/docker logs --details ${{ job.services.dynamodb.id }}
+        if: always()
