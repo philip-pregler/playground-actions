@@ -34,7 +34,11 @@ jobs:
 
       - name: Run tests
         run: |
-          dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi/webapi.csproj
+          dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" webapi/webapi.csproj
+          if [ $? -ne 0 ]; then
+            echo "Tests failed. Printing test results:"
+            dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi/webapi.csproj
+          fi
         env:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
         continue-on-error: true
