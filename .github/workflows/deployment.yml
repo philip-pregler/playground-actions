@@ -30,6 +30,6 @@ jobs:
         run: dotnet build --no-restore webapi/webapi.csproj
 
       - name: Run tests
-        run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName~DynamoDbTests webapi/webapi.csproj
+        run: dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" --filter FullyQualifiedName~DynamoDbTests webapi/webapi.csproj
         env:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
