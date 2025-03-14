@@ -41,5 +41,5 @@ jobs:
 
       - name: Print service container logs
         run: |
-          /usr/bin/docker logs --details ${{ job.services.dynamodb.id }}
+          /usr/bin/docker logs --details ${{ job.services.dynamodb.name }}
         if: always()
