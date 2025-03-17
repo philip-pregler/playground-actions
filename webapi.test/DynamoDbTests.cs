@@ -12,7 +12,7 @@ namespace webapi.test
         {
             _dynamoDbClient = new AmazonDynamoDBClient(new AmazonDynamoDBConfig
             {
-                ServiceURL = Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
+                ServiceURL = "http://dynamodb:8000"
             });
         }
 
