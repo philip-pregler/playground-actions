@@ -74,6 +74,8 @@ jobs:
           sleep 10
           curl -X POST http://localhost:8000 -H "Content-Type: application/x-amz-json-1.0" \
             -d '{"TableName":"TestTable"}' \
+            -H "x-amz-access-token: fakeMyKeyId" \
+            -H "x-amz-secret-key: fakeSecretAccessKey"
 
       #          while ! curl -s http://localhost:8000; do
 #            echo "Waiting for DynamoDB Local to respond..."
