@@ -1,0 +1,40 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{BD22CB71-8A9B-4A59-8A7B-6C0B10B6BC6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{0532A183-0AD4-4B02-8211-FF892FF90F59}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\deployment.yml = .github\workflows\deployment.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi", "webapi\webapi.csproj", "{A1234567-BCDE-4567-89AB-CDEF01234567}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.test", "webapi.test\webapi.test.csproj", "{B9E781E7-C6D5-4E95-9196-4B73C753890C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1234567-BCDE-4567-89AB-CDEF01234567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1234567-BCDE-4567-89AB-CDEF01234567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1234567-BCDE-4567-89AB-CDEF01234567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1234567-BCDE-4567-89AB-CDEF01234567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9E781E7-C6D5-4E95-9196-4B73C753890C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9E781E7-C6D5-4E95-9196-4B73C753890C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9E781E7-C6D5-4E95-9196-4B73C753890C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9E781E7-C6D5-4E95-9196-4B73C753890C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12345678-ABCD-EF01-2345-6789ABCDEF01}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0532A183-0AD4-4B02-8211-FF892FF90F59} = {BD22CB71-8A9B-4A59-8A7B-6C0B10B6BC6A}
+	EndGlobalSection
+EndGlobal
