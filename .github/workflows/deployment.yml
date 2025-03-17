@@ -56,7 +56,7 @@ jobs:
       #    dotnet build --no-restore webapi.test/webapi.test.csproj
 
       - name: Setup DynamoDB Local
-        uses: rrainn/dynamodb-action@v2.0.1
+        uses: rrainn/dynamodb-action@v4.0.0
         with:
           port: 8000
           cors: '*'
