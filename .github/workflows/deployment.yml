@@ -30,26 +30,24 @@ jobs:
           dotnet build --no-restore webapi/webapi.csproj
           dotnet build --no-restore webapi.test/webapi.test.csproj
 
-      - name: Cache DynamoDB Docker image
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.dynamodb-image
-          key: ${{ runner.os }}-dynamodb-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-dynamodb-
-
-      - name: Pull DynamoDB Docker image
-        run: docker pull amazon/dynamodb-local
+      - name: Set up Docker Buildx
+        uses: docker-practice/actions-setup-buildx@master
 
       - name: Start DynamoDB
-        run: docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory -noVerifySSL
+        run: |
+          docker buildx build \
+            --platform linux/amd64 \
+            -t amazon/dynamodb-local \
+            --output "type=docker,dest=/tmp/dynamodb.docker" \
+            https://github.com/amazon-archives/dynamodb-local.git#master
+          docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory -noVerifySSL
 
       - name: Verify DynamoDB connection
         run: |
-          # Warte 10 Sekunden, damit DynamoDB Zeit hat, vollständig zu starten
-          sleep 10
+          # Warte 30 Sekunden, damit DynamoDB Zeit hat, vollständig zu starten
+          sleep 30
           # Führe einen manuellen Test durch, um die DynamoDB-Verbindung zu überprüfen
-          curl http://localhost:8000/shell
+          curl http://localhost:8000
 
       - name: Run tests
         run: |
