@@ -13,7 +13,10 @@ jobs:
       dynamodb:
         image: amazon/dynamodb-local
         ports:
-          - 8000:8000
+          - "127.0.0.1:8000:8000"
+        command: "-jar DynamoDBLocal.jar -sharedDb"
+        volumes:
+          - dynamodb-data:/data
     
     steps:
       - uses: actions/checkout@v4
@@ -39,7 +42,7 @@ jobs:
       - name: Verify DynamoDB connection
         run: |
           # Führe einen manuellen Test durch, um die DynamoDB-Verbindung zu überprüfen
-          curl http://dynamodb:8000
+          curl http://localhost:8000
 
       - name: Run tests
         run: |
@@ -49,5 +52,5 @@ jobs:
             dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
-          DYNAMODB_ENDPOINT: http://dynamodb-local:8000
+          DYNAMODB_ENDPOINT: http://localhost:8000
         continue-on-error: true
