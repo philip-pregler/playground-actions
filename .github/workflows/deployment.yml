@@ -11,11 +11,11 @@ jobs:
     env:
       CI: true
     
-    services:
-      dynamodb:
-        image: amazon/dynamodb-local
-        ports:
-          - 8000:8000
+#    services:
+#      dynamodb:
+#        image: amazon/dynamodb-local
+#        ports:
+#          - 8000:8000
     
     steps:
       - uses: actions/checkout@v4
@@ -36,12 +36,13 @@ jobs:
       - name: Clean the project
         run: dotnet clean
 
-      - name: Wait for DynamoDB Local to be ready
+      - name: Setup DynamoDB Local
         run: |
+          docker run -d -p 8000:8000 --name dynamodb-local amazon/dynamodb-local -sharedDb -inMemory -region us-east-1
           echo "Waiting for DynamoDB Local to start..."
-          while ! curl -s -H "X-Amz-Date: $(date -u +%Y%m%dT%H%M%SZ)" -H "Authorization: AWS4-HMAC-SHA256 Credential=fakeMyKeyId/$(date -u +%Y%m%d)/us-east-1/dynamodb/aws4_request, SignedHeaders=host;x-amz-date, Signature=fakeSecretAccessKey" http://localhost:8000; do
-                                            echo "Waiting for DynamoDB Local to respond..."
-                                            sleep 5
+          while ! curl -s http://localhost:8000; do
+            echo "Waiting for DynamoDB Local to respond..."
+            sleep 5
           done
           echo "DynamoDB Local is ready!"
 
