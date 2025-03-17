@@ -39,9 +39,9 @@ jobs:
       - name: Wait for DynamoDB Local to be ready
         run: |
           echo "Waiting for DynamoDB Local to start..."
-          while ! curl -s http://localhost:8000; do
-            echo "Waiting for DynamoDB Local to respond..."
-            sleep 5
+          while ! curl -s -H "X-Amz-Date: $(date -u +%Y%m%dT%H%M%SZ)" -H "Authorization: AWS4-HMAC-SHA256 Credential=fakeMyKeyId/$(date -u +%Y%m%d)/us-east-1/dynamodb/aws4_request, SignedHeaders=host;x-amz-date, Signature=fakeSecretAccessKey" http://localhost:8000; do
+                                            echo "Waiting for DynamoDB Local to respond..."
+                                            sleep 5
           done
           echo "DynamoDB Local is ready!"
 
