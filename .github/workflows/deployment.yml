@@ -9,14 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
-    services:
-      dynamodb:
-        image: amazon/dynamodb-local
-        ports:
-          - "127.0.0.1:8000:8000"
-        entrypoint: [ "-jar", "DynamoDBLocal.jar", "-sharedDb" ]
-        volumes:
-          - dynamodb-data:/data
+
     
     steps:
       - uses: actions/checkout@v4
@@ -38,6 +31,10 @@ jobs:
         run: |
           dotnet build --no-restore webapi/webapi.csproj
           dotnet build --no-restore webapi.test/webapi.test.csproj
+          
+      - name: Start DynamoDB
+        run: |
+          docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
 
       - name: Verify DynamoDB connection
         run: |
