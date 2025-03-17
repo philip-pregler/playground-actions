@@ -46,6 +46,8 @@ jobs:
 
       - name: Verify DynamoDB connection
         run: |
+          # Warte 10 Sekunden, damit DynamoDB Zeit hat, vollständig zu starten
+          sleep 10
           # Führe einen manuellen Test durch, um die DynamoDB-Verbindung zu überprüfen
           curl http://localhost:8000
 
