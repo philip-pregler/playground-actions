@@ -36,30 +36,30 @@ jobs:
       - name: Clean the project
         run: dotnet clean
 
-      - name: Setup DynamoDB Local
-        run: |
-          docker run -d -p 8000:8000 --name dynamodb-local \
-            -e AWS_ACCESS_KEY_ID=fakeMyKeyId \
-            -e AWS_SECRET_ACCESS_KEY=fakeSecretAccessKey \
-            amazon/dynamodb-local -inMemory -region us-east-1
-          echo "Waiting for DynamoDB Local to start..."
-          docker logs dynamodb-local  # Ver logs del contenedor para depurar
-          while ! curl -s http://localhost:8000; do
-            echo "Waiting for DynamoDB Local to respond..."
-            sleep 5
-          done
-          echo "DynamoDB Local is ready!"
+#      - name: Setup DynamoDB Local
+#        run: |
+#          docker run -d -p 8000:8000 --name dynamodb-local \
+#            -e AWS_ACCESS_KEY_ID=fakeMyKeyId \
+#            -e AWS_SECRET_ACCESS_KEY=fakeSecretAccessKey \
+#            amazon/dynamodb-local -inMemory -region us-east-1
+#          echo "Waiting for DynamoDB Local to start..."
+#          docker logs dynamodb-local
+#          while ! curl -s http://localhost:8000; do
+#            echo "Waiting for DynamoDB Local to respond..."
+#            sleep 5
+#          done
+#          echo "DynamoDB Local is ready!"
       
       #- name: Build
       #  run: |
       #    dotnet build --no-restore webapi/webapi.csproj
       #    dotnet build --no-restore webapi.test/webapi.test.csproj
 
-      #- name: Setup DynamoDB Local
-      #  uses: rrainn/dynamodb-action@v2.0.1
-      #  with:
-      #    port: 8000
-      #    cors: '*'
+      - name: Setup DynamoDB Local
+        uses: rrainn/dynamodb-action@v2.0.1
+        with:
+          port: 8000
+          cors: '*'
 
 #      - name: Setup DynamoDB Local
 #        run: docker run -d -p 8000:8000 amazon/dynamodb-local:latest
