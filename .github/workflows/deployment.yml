@@ -26,6 +26,9 @@ jobs:
       - name: Display .NET version
         run: dotnet --version
 
+      - name: Clean the project
+        run: dotnet clean
+      
       - name: Install dependencies
         run: |
           dotnet restore webapi/webapi.csproj
