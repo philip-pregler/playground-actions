@@ -36,6 +36,15 @@ jobs:
       - name: Clean the project
         run: dotnet clean
 
+      - name: Wait for DynamoDB Local to be ready
+        run: |
+          echo "Waiting for DynamoDB Local to start..."
+          while ! curl -s http://localhost:8000; do
+            echo "Waiting for DynamoDB Local to respond..."
+            sleep 5
+          done
+          echo "DynamoDB Local is ready!"
+
       #- name: Build
       #  run: |
       #    dotnet build --no-restore webapi/webapi.csproj
