@@ -11,7 +11,8 @@ namespace webapi.test
         {
             _dynamoDbClient = new AmazonDynamoDBClient(new AmazonDynamoDBConfig
             {
-                ServiceURL = Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
+                ServiceURL = "http://localhost:8000"
+                //Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
             });
 
             // Erstelle die DynamoDB-Tabelle, falls sie noch nicht existiert
