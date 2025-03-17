@@ -27,17 +27,21 @@ jobs:
         run: dotnet --version
 
       - name: Install dependencies
-        run: dotnet restore webapi/webapi.csproj
+        run: |
+          dotnet restore webapi/webapi.csproj
+          dotnet restore webapi.test/webapi.test.csproj
 
       - name: Build
-        run: dotnet build --no-restore webapi/webapi.csproj
+        run: |
+          dotnet build --no-restore webapi/webapi.csproj
+          dotnet build --no-restore webapi.test/webapi.test.csproj
 
       - name: Run tests
         run: |
-          dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" webapi/webapi.csproj
+          dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" webapi.test/webapi.test.csproj
           if [ $? -ne 0 ]; then
             echo "Tests failed. Printing test results:"
-            dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi/webapi.csproj
+            dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
           DYNAMODB_ENDPOINT: http://dynamodb:8000
