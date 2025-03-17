@@ -48,7 +48,10 @@ jobs:
       #    cors: '*'
 
       - name: Setup DynamoDB Local
-        run: docker run --network host -d -p 8000:8000 amazon/dynamodb-local
+        run: docker run -d -p 8000:8000 amazon/dynamodb-local
+        env:
+          AWS_ACCESS_KEY_ID: fakeMyKeyId
+          AWS_SECRET_ACCESS_KEY: fakeSecretAccessKey
 
       - name: Verify DynamoDB Local is running
         run: |
