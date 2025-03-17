@@ -50,6 +50,10 @@ jobs:
       - name: Setup DynamoDB Local
         run: docker run -d -p 8000:8000 amazon/dynamodb-local
 
+      - name: Verify DynamoDB Local is running
+        run: |
+          docker ps -a | grep dynamodb-local
+
       - name: Run tests
         run: |
           dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" webapi.test/webapi.test.csproj
@@ -59,4 +63,4 @@ jobs:
           fi
         env:
           DYNAMODB_ENDPOINT: http://host.docker.internal:8000
-        continue-on-error: true
+        continue-on-error: false
