@@ -11,7 +11,7 @@ namespace webapi.test
         {
             _dynamoDbClient = new AmazonDynamoDBClient(new AmazonDynamoDBConfig
             {
-                ServiceURL = "http://localhost:8000"
+                ServiceURL = "http://host.docker.internal:8000"
                 //Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
             });
 
