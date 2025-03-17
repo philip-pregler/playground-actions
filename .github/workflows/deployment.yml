@@ -36,6 +36,11 @@ jobs:
           dotnet build --no-restore webapi/webapi.csproj
           dotnet build --no-restore webapi.test/webapi.test.csproj
 
+      - name: Verify DynamoDB connection
+        run: |
+          # Führe einen manuellen Test durch, um die DynamoDB-Verbindung zu überprüfen
+          curl http://dynamodb:8000
+
       - name: Run tests
         run: |
           dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" webapi.test/webapi.test.csproj
