@@ -31,16 +31,14 @@ jobs:
           dotnet build --no-restore webapi.test/webapi.test.csproj
 
       - name: Set up Docker Buildx
+        id: buildx
         uses: docker-practice/actions-setup-buildx@master
+        with:
+          version: latest
 
       - name: Start DynamoDB
         run: |
-          docker buildx build \
-            --platform linux/amd64 \
-            -t amazon/dynamodb-local \
-            --output "type=docker,dest=/tmp/dynamodb.docker" \
-            https://github.com/amazon-archives/dynamodb-local.git#master
-          docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory -noVerifySSL
+          ${{ steps.buildx.outputs.docker_container }} run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory -noVerifySSL
 
       - name: Verify DynamoDB connection
         run: |
