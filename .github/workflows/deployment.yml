@@ -36,16 +36,19 @@ jobs:
       - name: Clean the project
         run: dotnet clean
 
-      - name: Build
-        run: |
-          dotnet build --no-restore webapi/webapi.csproj
-          dotnet build --no-restore webapi.test/webapi.test.csproj
+      #- name: Build
+      #  run: |
+      #    dotnet build --no-restore webapi/webapi.csproj
+      #    dotnet build --no-restore webapi.test/webapi.test.csproj
 
       - name: Setup DynamoDB Local
         uses: rrainn/dynamodb-action@v2.0.1
         with:
           port: 8000
           cors: '*'
+
+      - name: Setup DynamoDB Local
+        run: docker run -d -p 8000:8000 amazon/dynamodb-local
 
       - name: Run tests
         run: |
