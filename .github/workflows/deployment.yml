@@ -41,6 +41,17 @@ jobs:
           dotnet build --no-restore webapi/webapi.csproj
           dotnet build --no-restore webapi.test/webapi.test.csproj
 
+      - name: Setup DynamoDB Local
+        uses: rrainn/dynamodb-action@v2.0.1
+        with:
+          dbPath: # undefined by default, if this is undefined inMemory will be used
+          sharedDb: # undefined by default
+          delayTransientStatuses: # undefined by default
+          optimizeDbBeforeStartup: # undefined by default
+          version: # "latest" by default
+          port: 8000
+          cors: '*'
+
       - name: Run tests
         run: |
           dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" webapi.test/webapi.test.csproj
