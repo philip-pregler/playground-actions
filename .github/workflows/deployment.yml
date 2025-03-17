@@ -41,14 +41,14 @@ jobs:
       #    dotnet build --no-restore webapi/webapi.csproj
       #    dotnet build --no-restore webapi.test/webapi.test.csproj
 
-      - name: Setup DynamoDB Local
-        uses: rrainn/dynamodb-action@v2.0.1
-        with:
-          port: 8000
-          cors: '*'
+      #- name: Setup DynamoDB Local
+      #  uses: rrainn/dynamodb-action@v2.0.1
+      #  with:
+      #    port: 8000
+      #    cors: '*'
 
-#      - name: Setup DynamoDB Local
-#        run: docker run -d -p 8000:8000 amazon/dynamodb-local
+      - name: Setup DynamoDB Local
+        run: docker run --network host -d -p 8000:8000 amazon/dynamodb-local
 
       - name: Verify DynamoDB Local is running
         run: |
