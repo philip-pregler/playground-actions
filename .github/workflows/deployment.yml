@@ -58,7 +58,7 @@ jobs:
       - name: Setup DynamoDB Local
         uses: rrainn/dynamodb-action@v4.0.0
         with:
-          port: 8000
+          port: 8080
           cors: '*'
           AWS_ACCESS_KEY_ID: "fakeMyKeyId"
           AWS_SECRET_ACCESS_KEY: "fakeSecretAccessKey"
@@ -74,7 +74,7 @@ jobs:
           docker ps -a | grep dynamodb-local
           echo "Waiting for DynamoDB Local to start..."
           sleep 10
-          curl -X POST http://localhost:8000 -H "Content-Type: application/x-amz-json-1.0" \
+          curl -X POST http://localhost:8080 -H "Content-Type: application/x-amz-json-1.0" \
             -d '{"TableName":"TestTable"}' \
 
       #          while ! curl -s http://localhost:8000; do
@@ -91,5 +91,5 @@ jobs:
             dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
-          DYNAMODB_ENDPOINT: http://localhost:8000
+          DYNAMODB_ENDPOINT: http://localhost:8080
         continue-on-error: false
