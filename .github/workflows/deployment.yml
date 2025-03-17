@@ -41,14 +41,14 @@ jobs:
       #    dotnet build --no-restore webapi/webapi.csproj
       #    dotnet build --no-restore webapi.test/webapi.test.csproj
 
-      - name: Setup DynamoDB Local
-        uses: rrainn/dynamodb-action@v2.0.1
-        with:
-          port: 8000
-          cors: '*'
+      #- name: Setup DynamoDB Local
+      #  uses: rrainn/dynamodb-action@v2.0.1
+      #  with:
+      #    port: 8000
+      #    cors: '*'
 
       - name: Setup DynamoDB Local
-        run: docker run -d -p 8003:8003 amazon/dynamodb-local
+        run: docker run -d -p 8000:8000 amazon/dynamodb-local
 
       - name: Run tests
         run: |
@@ -58,5 +58,5 @@ jobs:
             dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
-          DYNAMODB_ENDPOINT: http://dynamodb:8003
+          DYNAMODB_ENDPOINT: http://localhost:8000
         continue-on-error: true
