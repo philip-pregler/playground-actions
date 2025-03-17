@@ -60,6 +60,8 @@ jobs:
         with:
           port: 8000
           cors: '*'
+          AWS_ACCESS_KEY_ID: "fakeMyKeyId"
+          AWS_SECRET_ACCESS_KEY: "fakeSecretAccessKey"
 
 #      - name: Setup DynamoDB Local
 #        run: docker run -d -p 8000:8000 amazon/dynamodb-local:latest
@@ -74,8 +76,6 @@ jobs:
           sleep 10
           curl -X POST http://localhost:8000 -H "Content-Type: application/x-amz-json-1.0" \
             -d '{"TableName":"TestTable"}' \
-            -H "x-amz-access-token: fakeMyKeyId" \
-            -H "x-amz-secret-key: fakeSecretAccessKey"
 
       #          while ! curl -s http://localhost:8000; do
 #            echo "Waiting for DynamoDB Local to respond..."
