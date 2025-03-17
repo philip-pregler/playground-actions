@@ -38,7 +38,7 @@ jobs:
 
       - name: Setup DynamoDB Local
         run: |
-          docker run -d -p 8000:8000 --name dynamodb-local amazon/dynamodb-local -sharedDb -inMemory -region us-east-1
+          docker run -d --network host -p 8000:8000 --name dynamodb-local amazon/dynamodb-local
           echo "Waiting for DynamoDB Local to start..."
           while ! curl -s http://localhost:8000; do
             echo "Waiting for DynamoDB Local to respond..."
@@ -46,6 +46,7 @@ jobs:
           done
           echo "DynamoDB Local is ready!"
 
+      
       #- name: Build
       #  run: |
       #    dotnet build --no-restore webapi/webapi.csproj
