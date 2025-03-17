@@ -40,7 +40,7 @@ jobs:
       - name: Start DynamoDB
         run: |
           docker pull amazon/dynamodb-local
-          docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory -noVerifySSL
+          docker run -d --name dynamodb --network host amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory -noVerifySSL
 
       - name: Verify DynamoDB connection
         run: |
