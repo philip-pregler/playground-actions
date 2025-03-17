@@ -48,7 +48,7 @@ jobs:
           cors: '*'
 
       - name: Setup DynamoDB Local
-        run: docker run -d -p 8000:8000 amazon/dynamodb-local
+        run: docker run -d -p 8003:8003 amazon/dynamodb-local
 
       - name: Run tests
         run: |
@@ -58,5 +58,5 @@ jobs:
             dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
-          DYNAMODB_ENDPOINT: http://dynamodb:8000
+          DYNAMODB_ENDPOINT: http://dynamodb:8003
         continue-on-error: true
