@@ -39,17 +39,13 @@ jobs:
 
       - name: Start DynamoDB
         run: |
-          docker buildx build \
-            --platform linux/amd64 \
-            -t amazon/dynamodb-local \
-            --output "type=docker,dest=/tmp/dynamodb.docker" \
-            https://github.com/amazon-archives/dynamodb-local.git#master
+          docker pull amazon/dynamodb-local
           docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory -noVerifySSL
 
       - name: Verify DynamoDB connection
         run: |
-          # Warte 30 Sekunden, damit DynamoDB Zeit hat, vollständig zu starten
-          sleep 30
+          # Warte 15 Sekunden, damit DynamoDB Zeit hat, vollständig zu starten
+          sleep 15
           # Führe einen manuellen Test durch, um die DynamoDB-Verbindung zu überprüfen
           curl http://localhost:8000
 
