@@ -1,5 +1,6 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
+using Amazon.Runtime;
 
 namespace webapi.test
 {
@@ -9,7 +10,8 @@ namespace webapi.test
 
         public DynamoDbTests()
         {
-            _dynamoDbClient = new AmazonDynamoDBClient(new AmazonDynamoDBConfig
+            var credentials = new BasicAWSCredentials("fakeMyKeyId", "fakeSecretAccessKey");
+            _dynamoDbClient = new AmazonDynamoDBClient(credentials, new AmazonDynamoDBConfig
             {
                 ServiceURL = "http://localhost:8000"
                 //Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
