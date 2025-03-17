@@ -70,7 +70,7 @@ jobs:
       - name: Verify DynamoDB Local is running
         run: |
           docker ps -a | grep dynamodb-local
-          while ! curl -s http://host.docker.internal:8000; do
+          while ! curl -s http://localhost:8000; do
             echo "Waiting for DynamoDB Local to respond..."
             sleep 5
           done
