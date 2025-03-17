@@ -9,10 +9,9 @@ namespace webapi.test
 
         public DynamoDbTests()
         {
-            // Konfiguriere den AmazonDynamoDBClient mit dem lokalen DynamoDB-Endpunkt
             _dynamoDbClient = new AmazonDynamoDBClient(new AmazonDynamoDBConfig
             {
-                ServiceURL = "http://localhost:8000"
+                ServiceURL = Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
             });
 
             // Erstelle die DynamoDB-Tabelle, falls sie noch nicht existiert
