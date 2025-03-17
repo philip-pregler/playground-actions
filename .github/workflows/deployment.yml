@@ -9,8 +9,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
-
-    
     steps:
       - uses: actions/checkout@v4
 
@@ -31,10 +29,20 @@ jobs:
         run: |
           dotnet build --no-restore webapi/webapi.csproj
           dotnet build --no-restore webapi.test/webapi.test.csproj
-          
+
+      - name: Cache DynamoDB Docker image
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.dynamodb-image
+          key: ${{ runner.os }}-dynamodb-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-dynamodb-
+
+      - name: Pull DynamoDB Docker image
+        run: docker pull amazon/dynamodb-local
+
       - name: Start DynamoDB
-        run: |
-          docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
+        run: docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
 
       - name: Verify DynamoDB connection
         run: |
