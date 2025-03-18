@@ -600,17 +600,6 @@
           "build/netcoreapp3.1/Microsoft.TestPlatform.TestHost.props": {}
         }
       },
-      "Microsoft.VisualStudio.TestPlatform/14.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {},
-          "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {},
-          "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {}
-        }
-      },
       "MSTest.TestAdapter/3.8.2": {
         "type": "package",
         "dependencies": {
@@ -1606,21 +1595,6 @@
         "microsoft.testplatform.testhost.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.TestPlatform/14.0.0": {
-      "sha512": "QlZrNka65U8Nn0NTVU+p6LqQUEUiWifUErbNRevT7zAirbi8xal45vnZLrx75ib2bTkFvhTydTtf3MVYX6hSAA==",
-      "type": "package",
-      "path": "microsoft.visualstudio.testplatform/14.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net45/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll",
-        "lib/net45/Microsoft.VisualStudio.TestPlatform.TestFramework.dll",
-        "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll",
-        "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.dll",
-        "microsoft.visualstudio.testplatform.14.0.0.nupkg.sha512",
-        "microsoft.visualstudio.testplatform.nuspec"
-      ]
-    },
     "MSTest.TestAdapter/3.8.2": {
       "sha512": "Xzch3LrRJKzIMP6D956W0DEy8NInkNSXS9novzEC72hMz8VlhDamRNDsR+b5QMvct+1TTIWRvw6cBHtiMB6Ajw==",
       "type": "package",
@@ -1661,7 +1635,6 @@
         "buildTransitive/net462/Microsoft.TestPlatform.AdapterUtilities.dll",
         "buildTransitive/net462/Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll",
         "buildTransitive/net462/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll",
-        "buildTransitive/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.dll",
         "buildTransitive/net6.0/MSTest.TestAdapter.props",
         "buildTransitive/net6.0/MSTest.TestAdapter.targets",
         "buildTransitive/net6.0/Microsoft.TestPlatform.AdapterUtilities.dll",
@@ -1931,32 +1904,32 @@
       "AWSSDK.DynamoDBv2 >= 3.7.406.1",
       "MSTest.TestAdapter >= 3.8.2",
       "Microsoft.NET.Test.Sdk >= 17.12.0",
-      "Microsoft.VisualStudio.TestPlatform >= 14.0.0",
       "coverlet.collector >= 6.0.2",
       "xunit >= 2.9.2",
       "xunit.runner.visualstudio >= 2.8.2"
     ]
   },
   "packageFolders": {
-    "/Users/z0052jaz/.nuget/packages/": {}
+    "/Users/luis_may/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/z0052jaz/RiderProjects/playground-actions/webapi.test/webapi.test.csproj",
+      "projectUniqueName": "/Users/luis_may/RiderProjects/playground-actions_final/webapi.test/webapi.test.csproj",
       "projectName": "webapi.test",
-      "projectPath": "/Users/z0052jaz/RiderProjects/playground-actions/webapi.test/webapi.test.csproj",
-      "packagesPath": "/Users/z0052jaz/.nuget/packages/",
-      "outputPath": "/Users/z0052jaz/RiderProjects/playground-actions/webapi.test/obj/",
+      "projectPath": "/Users/luis_may/RiderProjects/playground-actions_final/webapi.test/webapi.test.csproj",
+      "packagesPath": "/Users/luis_may/.nuget/packages/",
+      "outputPath": "/Users/luis_may/RiderProjects/playground-actions_final/webapi.test/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/z0052jaz/.nuget/NuGet/NuGet.Config"
+        "/Users/luis_may/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://pulse-917113436149.d.codeartifact.eu-central-1.amazonaws.com/nuget/pulse-common/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
@@ -1992,10 +1965,6 @@
             "target": "Package",
             "version": "[17.12.0, )"
           },
-          "Microsoft.VisualStudio.TestPlatform": {
-            "target": "Package",
-            "version": "[14.0.0, )"
-          },
           "coverlet.collector": {
             "target": "Package",
             "version": "[6.0.2, )"
@@ -2028,5 +1997,13 @@
         "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://pulse-917113436149.d.codeartifact.eu-central-1.amazonaws.com/nuget/pulse-common/v3/index.json."
+    }
+  ]
 }
