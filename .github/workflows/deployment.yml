@@ -49,10 +49,10 @@ jobs:
 
       - name: Run tests
         run: |
-          dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" webapi.test/webapi.test.csproj
+          dotnet test --no-build --verbosity normal --logger "trx;LogFileName=TestResultsGeneralTests.trx" --collect "Code coverage" webapi.test/webapi.test.csproj
           if [ $? -ne 0 ]; then
             echo "Tests failed. Printing test results:"
-            dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
+            dotnet test --no-build --verbosity normal --logger "trx;LogFileName=TestResultsGeneralTests.trx" --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
           AWS_ACCESS_KEY_ID: fakeMyKeyId
