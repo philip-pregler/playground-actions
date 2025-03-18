@@ -32,7 +32,7 @@ jobs:
 
       - name: Start DynamoDB
         run: |
-          docker run -d --name dynamodb -p 8000:8000 -v $(pwd)/local-dynamodb:/home/dynamodblocal/data amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data
+          docker run -d --name dynamodb -p 8000:8000 -e DDB_ENDPOINT=http://localhost:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data
 
       - name: Verify DynamoDB connection
         run: |
@@ -48,7 +48,5 @@ jobs:
             dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
-          AWS_ACCESS_KEY_ID: fakeMyKeyId
-          AWS_SECRET_ACCESS_KEY: fakeSecretAccessKey
           DYNAMODB_ENDPOINT: http://localhost:8000
         continue-on-error: true
