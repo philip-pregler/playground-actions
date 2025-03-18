@@ -9,6 +9,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
+    services:
+      dynamodb:
+        image: amazon/dynamodb-local
+        ports:
+          - 8000:8000
+    
     steps:
       - uses: actions/checkout@v4
 
@@ -32,9 +38,9 @@ jobs:
 
       - name: Verify DynamoDB connection
         run: |
+          sleep 15
           echo "Verbindungstest zu DynamoDB..."
           curl http://localhost:8000
-        continue-on-error: true
 
       - name: Run tests
         run: |
