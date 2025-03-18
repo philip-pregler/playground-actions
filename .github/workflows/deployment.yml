@@ -60,8 +60,7 @@ jobs:
         with:
           port: 8080
           cors: '*'
-          AWS_ACCESS_KEY_ID: "fakeMyKeyId"
-          AWS_SECRET_ACCESS_KEY: "fakeSecretAccessKey"
+          sharedDb: true
 
 #      - name: Setup DynamoDB Local
 #        run: docker run -d -p 8000:8000 amazon/dynamodb-local:latest
