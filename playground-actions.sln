@@ -13,6 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi", "webapi\webapi.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.test", "webapi.test\webapi.test.csproj", "{B9E781E7-C6D5-4E95-9196-4B73C753890C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{2A9B3B6D-EC23-4FF7-81B3-4D217EC74F3A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\Dockerfile = .github\workflows\Dockerfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
