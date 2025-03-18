@@ -10,7 +10,7 @@ namespace webapi.test
 
         public DynamoDbTests()
         {
-            var credentials = new BasicAWSCredentials("fakeMyKeyId", "fakeSecretAccessKey");
+            var credentials = new BasicAWSCredentials("DUMMYIDEXAMPLE", "DUMMYEXAMPLEKEY");
             _dynamoDbClient = new AmazonDynamoDBClient(credentials, new AmazonDynamoDBConfig
             {
                 ServiceURL = "http://localhost:8000"
