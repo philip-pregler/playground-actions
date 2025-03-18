@@ -46,16 +46,13 @@ jobs:
           fi
           
       - name: Publish General Tests
-        uses: actions/dorny_test-reporter@@v1.0.0
+        uses: dorny/test-reporter@v2
         if: success() || failure() # run this step even if previous step failed
         with:
           name: GeneralTests
           path: "**/TestResultsGeneralTests.trx"
           reporter: dotnet-trx
           fail-on-error: false
-
-
-
 
         env:
           AWS_ACCESS_KEY_ID: fakeMyKeyId
