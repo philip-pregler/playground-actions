@@ -1,24 +1,11 @@
-name: Deployment
-
-on:
-  push:
-    branches: [ task/pipeline_copy ]
-
 jobs:
-
   test:
     runs-on: ubuntu-latest
     env:
       CI: true
     
-#    services:
-#      dynamodb:
-#        image: amazon/dynamodb-local
-#        ports:
-#          - 8000:8000
-    
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
 
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
@@ -27,61 +14,26 @@ jobs:
 
       - name: Display .NET version
         run: dotnet --version
-      
+
       - name: Install dependencies
         run: |
           dotnet restore webapi/webapi.csproj
           dotnet restore webapi.test/webapi.test.csproj
-          
-      - name: Clean the project
-        run: dotnet clean
 
-#      - name: Setup DynamoDB Local
-#        run: |
-#          docker run -d -p 8000:8000 --name dynamodb-local \
-#            -e AWS_ACCESS_KEY_ID=fakeMyKeyId \
-#            -e AWS_SECRET_ACCESS_KEY=fakeSecretAccessKey \
-#            amazon/dynamodb-local -inMemory -region us-east-1
-#          echo "Waiting for DynamoDB Local to start..."
-#          docker logs dynamodb-local
-#          while ! curl -s http://localhost:8000; do
-#            echo "Waiting for DynamoDB Local to respond..."
-#            sleep 5
-#          done
-#          echo "DynamoDB Local is ready!"
-      
-      #- name: Build
-      #  run: |
-      #    dotnet build --no-restore webapi/webapi.csproj
-      #    dotnet build --no-restore webapi.test/webapi.test.csproj
-
-      - name: Setup DynamoDB Local
-        uses: rrainn/dynamodb-action@v2.0.0
-        with:
-          port: 8080
-          cors: '*'
-          sharedDb: true
-          version: 'latest'
-
-#      - name: Setup DynamoDB Local
-#        run: docker run -d -p 8000:8000 amazon/dynamodb-local:latest
-#        env:
-#          AWS_ACCESS_KEY_ID: fakeMyKeyId
-#          AWS_SECRET_ACCESS_KEY: fakeSecretAccessKey
+      - name: Start DynamoDB Local using Docker Compose
+        run: |
+          docker-compose -f path/to/your/docker-compose.yml up -d
+          echo "Waiting for DynamoDB Local to start..."
+          sleep 15 # Ajustar tiempo según sea necesario
+          docker-compose logs dynamodb-local
 
       - name: Verify DynamoDB Local is running
         run: |
           docker ps -a | grep dynamodb-local
-          echo "Waiting for DynamoDB Local to start..."
-          sleep 10
+          echo "Waiting for DynamoDB Local to respond..."
           curl -X POST http://localhost:8080 -H "Content-Type: application/x-amz-json-1.0" \
-            -d '{"TableName":"TestTable"}' \
-
-      #          while ! curl -s http://localhost:8000; do
-#            echo "Waiting for DynamoDB Local to respond..."
-#            sleep 5
-#          done
-#          echo "DynamoDB Local is ready!"
+            -H "X-Amz-Target: DynamoDB_20120810.ListTables" \
+            -d '{}' || (echo "DynamoDB Local is not responding" && exit 1)
 
       - name: Run tests
         run: |
