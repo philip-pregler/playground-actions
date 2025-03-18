@@ -42,7 +42,7 @@ jobs:
           echo "Waiting for DynamoDB Local to start..."
           sleep 10
           curl -X POST http://localhost:8080 -H "Content-Type: application/x-amz-json-1.0" \
-          -d '{"TableName":"TestTable"}' \8/us-west-2/dynamodb/aws4_request, SignedHeaders=content-type;host;x-amz-target, Signature=DUMMYEXAMPLEKEY" \
+          -d '{"TableName":"TestTable"}'
 
       - name: Run tests
         run: |
