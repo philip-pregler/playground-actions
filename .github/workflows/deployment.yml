@@ -8,15 +8,15 @@ jobs:
   buildx:
     runs-on: ubuntu-latest
     steps:
-      - 
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
         name: List directory contents
         run: |
           ls -la
           ls -la webapi
           ls -la webapi.test
-      -
-        name: Checkout
-        uses: actions/checkout@v4
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
