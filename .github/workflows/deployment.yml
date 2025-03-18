@@ -56,12 +56,12 @@ jobs:
       #    dotnet build --no-restore webapi.test/webapi.test.csproj
 
       - name: Setup DynamoDB Local
-        uses: rrainn/dynamodb-action@v4.0.0
+        uses: rrainn/dynamodb-action@v2.0.0
         with:
           port: 8080
           cors: '*'
           sharedDb: true
-          version: latest
+          version: 'latest'
 
 #      - name: Setup DynamoDB Local
 #        run: docker run -d -p 8000:8000 amazon/dynamodb-local:latest
