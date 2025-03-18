@@ -26,6 +26,9 @@ jobs:
           dotnet restore webapi/webapi.csproj
           dotnet restore webapi.test/webapi.test.csproj
           
+      - name: Clean the project
+        run: dotnet clean
+
       - name: Setup DynamoDB Local
         uses: rrainn/dynamodb-action@v4.0.0
         with:
@@ -35,15 +38,11 @@ jobs:
         
       - name: Verify DynamoDB Local is running
         run: |
-          echo "Waiting for DynamoDB Local to respond..."
-          curl -X POST http://localhost:8000 \
-            -H "Content-Type: application/x-amz-json-1.0" \
-            -H "X-Amz-Target: DynamoDB_20120810.ListTables" \
-            -H "Authorization: AWS4-HMAC-SHA256 Credential=DUMMYIDEXAMPLE/20250318/us-west-2/dynamodb/aws4_request, SignedHeaders=content-type;host;x-amz-target, Signature=DUMMYEXAMPLEKEY" \
-            -H "X-Amz-Date: 20250318T000000Z" \
-            -d '{}'
-            --max-time 10 || (echo "DynamoDB Local is not responding" && exit 1)
-      
+          docker ps -a | grep dynamodb-local
+          echo "Waiting for DynamoDB Local to start..."
+          sleep 10
+          curl -X POST http://localhost:8080 -H "Content-Type: application/x-amz-json-1.0" \
+          -d '{"TableName":"TestTable"}' \8/us-west-2/dynamodb/aws4_request, SignedHeaders=content-type;host;x-amz-target, Signature=DUMMYEXAMPLEKEY" \
 
       - name: Run tests
         run: |
