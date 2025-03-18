@@ -5,45 +5,42 @@ on:
     branches: [ test-jan ]
 
 jobs:
-  buildx:
+
+  test:
     runs-on: ubuntu-latest
+    
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4
-      -
-        name: List directory contents
-        run: |
-          ls -la
-          ls -la webapi
-          ls -la webapi.test
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Build and push
-        uses: docker/build-push-action@v4
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
         with:
-          context: Docker
-          push: false
-          tags: user/app:latest
-      -
-        name: Start DynamoDB
+          dotnet-version: '9.0.200'
+
+      - name: Display .NET version
+        run: dotnet --version
+
+      - name: Install dependencies
+        run: |
+          dotnet restore webapi/webapi.csproj
+          dotnet restore webapi.test/webapi.test.csproj
+
+      - name: Build
+        run: |
+          dotnet build --no-restore webapi/webapi.csproj
+          dotnet build --no-restore webapi.test/webapi.test.csproj
+
+      - name: Start DynamoDB
         run: |
           docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local
           sleep 15
-          docker ps
-          docker logs dynamodb
-      -
-        name: Verify DynamoDB connection
+
+      - name: Verify DynamoDB connection
         run: |
           echo "Verbindungstest zu DynamoDB..."
           curl http://localhost:8000
-      -
-        name: Run tests
+
+      - name: Run tests
         run: |
           dotnet test --no-build --verbosity normal --logger trx --collect "Code coverage" webapi.test/webapi.test.csproj
           if [ $? -ne 0 ]; then
