@@ -42,7 +42,7 @@ jobs:
         run: |
           docker ps -a | grep dynamodb-local
           echo "Waiting for DynamoDB Local to respond..."
-          curl -X POST http://dynamodb-local:8000  \
+          curl -X POST http://localhost:8000 \
             -H "Content-Type: application/x-amz-json-1.0" \
             -H "X-Amz-Target: DynamoDB_20120810.ListTables" \
             -H "Authorization: AWS4-HMAC-SHA256 Credential=DUMMYIDEXAMPLE/20250318/us-west-2/dynamodb/aws4_request, SignedHeaders=content-type;host;x-amz-target, Signature=DUMMYEXAMPLEKEY" \
@@ -57,5 +57,5 @@ jobs:
             dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
-          DYNAMODB_ENDPOINT: http://dynamodb-local:8000
+          DYNAMODB_ENDPOINT: http://localhost:8000
         continue-on-error: false

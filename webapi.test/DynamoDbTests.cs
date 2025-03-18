@@ -13,7 +13,7 @@ namespace webapi.test
             var credentials = new BasicAWSCredentials("fakeMyKeyId", "fakeSecretAccessKey");
             _dynamoDbClient = new AmazonDynamoDBClient(credentials, new AmazonDynamoDBConfig
             {
-                ServiceURL = "http://dynamodb-local:8000"
+                ServiceURL = "http://localhost:8000"
                 //Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
             });
 
