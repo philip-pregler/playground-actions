@@ -31,7 +31,7 @@ jobs:
         with:
           port: 8080
           cors: '*'
-          sharedDb: true
+          sharedDb: false
         
       - name: Verify DynamoDB Local is running
         run: |
