@@ -29,23 +29,13 @@ jobs:
         run: |
           dotnet build --no-restore webapi/webapi.csproj
           dotnet build --no-restore webapi.test/webapi.test.csproj
-          
 
-#      - name: Start DynamoDB
-#        run: |
-#          docker run -d --name dynamodb -p 8000:8000 -v $(pwd)/local-dynamodb:/home/dynamodblocal/data amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data
-#      
+
       - name: Docker test
         run: |
           docker --version
           docker pull amazon/dynamodb-local
           docker run -d -p 8001:8000 --name dynamodb-local amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
-      
-#      - name: Verify DynamoDB connection
-#        run: |
-#          sleep 15
-#          echo "Verbindungstest zu DynamoDB..."
-#          curl http://localhost:8000
 
       - name: Run tests
         run: |
@@ -54,6 +44,19 @@ jobs:
             echo "Tests failed. Printing test results:"
             dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
+          
+      - name: Publish General Tests
+        uses: actions/dorny_test-reporter@v1
+        if: success() || failure() # run this step even if previous step failed
+        with:
+          name: GeneralTests
+          path: "**/TestResultsGeneralTests.trx"
+          reporter: dotnet-trx
+          fail-on-error: false
+
+
+
+
         env:
           AWS_ACCESS_KEY_ID: fakeMyKeyId
           AWS_SECRET_ACCESS_KEY: fakeSecretAccessKey
