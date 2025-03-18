@@ -8,6 +8,12 @@ jobs:
   buildx:
     runs-on: ubuntu-latest
     steps:
+      - 
+        name: List directory contents
+        run: |
+          ls -la
+          ls -la webapi
+          ls -la webapi.test
       -
         name: Checkout
         uses: actions/checkout@v4
