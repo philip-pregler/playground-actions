@@ -61,6 +61,7 @@ jobs:
           port: 8080
           cors: '*'
           sharedDb: true
+          version: latest
 
 #      - name: Setup DynamoDB Local
 #        run: docker run -d -p 8000:8000 amazon/dynamodb-local:latest
