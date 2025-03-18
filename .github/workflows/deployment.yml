@@ -74,7 +74,26 @@ jobs:
           echo "Waiting for DynamoDB Local to start..."
           sleep 10
           curl -X POST http://localhost:8080 -H "Content-Type: application/x-amz-json-1.0" \
-            -d '{"TableName":"TestTable"}' \
+            -H "X-Amz-Target: DynamoDB_20120810.CreateTable" \
+            -d '{
+            "TableName": "TestTable",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "Id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "Id",
+                "KeyType": "HASH"
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 1,
+              "WriteCapacityUnits": 1
+            }
+          }'
 
       #          while ! curl -s http://localhost:8000; do
 #            echo "Waiting for DynamoDB Local to respond..."
