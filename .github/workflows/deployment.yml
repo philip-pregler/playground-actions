@@ -33,7 +33,7 @@ jobs:
           
       - name: Start DynamoDB
         run: |
-          docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local
+          docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -noVerifySSL
           sleep 10
           docker ps
           docker logs dynamodb
