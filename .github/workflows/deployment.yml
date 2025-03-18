@@ -46,7 +46,7 @@ jobs:
           fi
           
       - name: Publish General Tests
-        uses: actions/dorny_test-reporter@v1
+        uses: actions/dorny_test-reporter@@v1.0.0
         if: success() || failure() # run this step even if previous step failed
         with:
           name: GeneralTests
