@@ -9,11 +9,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
-    services:
-      dynamodb:
-        image: amazon/dynamodb-local
-        ports:
-          - 8000:8000
     
     steps:
       - uses: actions/checkout@v4
@@ -35,6 +30,10 @@ jobs:
         run: |
           dotnet build --no-restore webapi/webapi.csproj
           dotnet build --no-restore webapi.test/webapi.test.csproj
+          
+      - name: Start DynamoDB
+        run: |
+          docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local
 
       - name: Verify DynamoDB connection
         run: |
