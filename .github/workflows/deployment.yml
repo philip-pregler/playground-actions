@@ -32,11 +32,11 @@ jobs:
 
       - name: Start DynamoDB
         run: |
-          docker run -d --name dynamodb -p 8000:8000 -e AWS_ACCESS_KEY_ID=fakeMyKeyId -e AWS_SECRET_ACCESS_KEY=fakeSecretAccessKey -e DDB_ENDPOINT=http://localhost:8000 amazon/dynamodb-local
-          sleep 15
+          docker run -d --name dynamodb -p 8000:8000 -v $(pwd)/local-dynamodb:/home/dynamodblocal/data amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data
 
       - name: Verify DynamoDB connection
         run: |
+          sleep 15
           echo "Verbindungstest zu DynamoDB..."
           curl http://localhost:8000
 
