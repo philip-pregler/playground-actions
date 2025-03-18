@@ -26,32 +26,13 @@ jobs:
           dotnet restore webapi/webapi.csproj
           dotnet restore webapi.test/webapi.test.csproj
           
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-
-      - name: Start DynamoDB Local using Docker Compose
-        run: |
-          docker-compose -f docker-compose.yml up -d
-          echo "Waiting for DynamoDB Local to start..."
-          sleep 15 # Ajustar tiempo según sea necesario
-          docker-compose logs dynamodb-local
+      - name: Setup DynamoDB Local
+        uses: rrainn/dynamodb-action@v4.0.0
+        with:
+          port: 8080
+          cors: '*'
+          sharedDb: true
         
-
-      - name: Health Check for DynamoDB Local
-        run: |
-          until curl -s -X POST http://localhost:8000 \
-            -H "Content-Type: application/x-amz-json-1.0" \
-            -H "X-Amz-Target: DynamoDB_20120810.ListTables" \
-            -H "Authorization: AWS4-HMAC-SHA256 Credential=DUMMYIDEXAMPLE/20250318/us-west-2/dynamodb/aws4_request, SignedHeaders=content-type;host;x-amz-target, Signature=DUMMYEXAMPLEKEY" \
-            -H "X-Amz-Date: 20250318T000000Z" \
-            -d '{}' > /dev/null; do
-              echo "Waiting for DynamoDB Local to be reachable..."
-              sleep 5
-          done
-          echo "DynamoDB Local is ready!"
-
       - name: Verify DynamoDB Local is running
         run: |
           docker ps -a | grep dynamodb-local
