@@ -9,6 +9,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
+    services:
+      dynamodb:
+        image: amazon/dynamodb-local
+        ports:
+          - 8000:8000
+    
     steps:
       - uses: actions/checkout@v4
 
@@ -30,16 +36,12 @@ jobs:
           dotnet build --no-restore webapi/webapi.csproj
           dotnet build --no-restore webapi.test/webapi.test.csproj
 
-      - name: Start DynamoDB
-        run: |
-          docker run -d --name dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory -noVerifySSL
-
       - name: Verify DynamoDB connection
         run: |
-          # Warte 60 Sekunden, damit DynamoDB Zeit hat, vollständig zu starten
-          sleep 60
+          sleep 15
+          echo "Verbindungstest zu DynamoDB..."
           # Führe einen manuellen Test durch, um die DynamoDB-Verbindung zu überprüfen
-          curl http://localhost:8000/shell
+          curl http://localhost:8000
 
       - name: Run tests
         run: |
