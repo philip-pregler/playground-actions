@@ -41,7 +41,7 @@ jobs:
           docker ps -a | grep dynamodb-local
           echo "Waiting for DynamoDB Local to start..."
           sleep 10
-          curl -X POST http://localhost:8080 -H "Content-Type: application/x-amz-json-1.0" \
+          curl -X POST http://localhost:8000 -H "Content-Type: application/x-amz-json-1.0" \
           -d '{"TableName":"TestTable"}'
 
       - name: Run tests
