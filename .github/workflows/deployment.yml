@@ -37,6 +37,15 @@ jobs:
           echo "Waiting for DynamoDB Local to start..."
           sleep 15 # Ajustar tiempo según sea necesario
           docker-compose logs dynamodb-local
+        
+
+      - name: Health Check for DynamoDB Local
+        run: |
+          until curl -s http://localhost:8000; do
+            echo "Waiting for DynamoDB Local to be reachable..."
+            sleep 5
+          done
+          echo "DynamoDB Local is ready!"
 
       - name: Verify DynamoDB Local is running
         run: |
