@@ -9,12 +9,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
-    services:
-      dynamodb:
-        image: amazon/dynamodb-local
-        ports:
-          - 8000:8000
-    
     steps:
       - uses: actions/checkout@v4
 
@@ -35,7 +29,16 @@ jobs:
         run: |
           dotnet build --no-restore webapi/webapi.csproj
           dotnet build --no-restore webapi.test/webapi.test.csproj
+          
 
+      - name: Start DynamoDB
+        run: |
+          docker run -d --name dynamodb -p 8000:8000 -v $(pwd)/local-dynamodb:/home/dynamodblocal/data amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data
+      
+      - name: Docker test
+        run: |
+          docker --version
+      
       - name: Verify DynamoDB connection
         run: |
           sleep 15
@@ -50,5 +53,7 @@ jobs:
             dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
+          AWS_ACCESS_KEY_ID: fakeMyKeyId
+          AWS_SECRET_ACCESS_KEY: fakeSecretAccessKey
           DYNAMODB_ENDPOINT: http://localhost:8000
         continue-on-error: true
