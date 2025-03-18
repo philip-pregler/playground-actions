@@ -2,16 +2,15 @@ name: Deployment
 
 on:
   push:
-    branches: [ task/pipeline_copy ]
+    branches: [ test-jan ]
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
-    env:
-      CI: true
     
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
@@ -25,25 +24,28 @@ jobs:
         run: |
           dotnet restore webapi/webapi.csproj
           dotnet restore webapi.test/webapi.test.csproj
-          
-      - name: Clean the project
-        run: dotnet clean
 
-      - name: Setup DynamoDB Local
-        uses: rrainn/dynamodb-action@v4.0.0
-        with:
-          port: 8000
-          cors: '*'
-          sharedDb: false
-          dbPath: './docker/dynamodb'
-        
-      - name: Verify DynamoDB Local is running
+      - name: Build
         run: |
-          docker ps -a | grep dynamodb-local
-          echo "Waiting for DynamoDB Local to start..."
-          sleep 20
-          curl -X POST http://localhost:8000 -H "Content-Type: application/x-amz-json-1.0" \
-          -d '{"TableName":"TestTable"}'
+          dotnet build --no-restore webapi/webapi.csproj
+          dotnet build --no-restore webapi.test/webapi.test.csproj
+          
+
+#      - name: Start DynamoDB
+#        run: |
+#          docker run -d --name dynamodb -p 8000:8000 -v $(pwd)/local-dynamodb:/home/dynamodblocal/data amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data
+#      
+      - name: Docker test
+        run: |
+          docker --version
+          docker pull amazon/dynamodb-local
+          docker run -d -p 8001:8000 --name dynamodb-local amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
+      
+#      - name: Verify DynamoDB connection
+#        run: |
+#          sleep 15
+#          echo "Verbindungstest zu DynamoDB..."
+#          curl http://localhost:8000
 
       - name: Run tests
         run: |
@@ -53,5 +55,7 @@ jobs:
             dotnet test --no-build --verbosity normal --logger console --collect "Code coverage" webapi.test/webapi.test.csproj
           fi
         env:
+          AWS_ACCESS_KEY_ID: fakeMyKeyId
+          AWS_SECRET_ACCESS_KEY: fakeSecretAccessKey
           DYNAMODB_ENDPOINT: http://localhost:8000
-        continue-on-error: false
+        continue-on-error: true

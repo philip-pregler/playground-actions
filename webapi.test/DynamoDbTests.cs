@@ -1,21 +1,19 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-using Amazon.Runtime;
 
 namespace webapi.test
 {
     public class DynamoDbTests
     {
-        private AmazonDynamoDBClient _dynamoDbClient;
+        private readonly AmazonDynamoDBClient _dynamoDbClient;
 
         public DynamoDbTests()
         {
-            var credentials = new BasicAWSCredentials("DUMMYIDEXAMPLE", "DUMMYEXAMPLEKEY");
-            _dynamoDbClient = new AmazonDynamoDBClient(credentials, new AmazonDynamoDBConfig
+            var dynamoDbConfig = new AmazonDynamoDBConfig
             {
-                ServiceURL = "http://localhost:8000"
-                //Environment.GetEnvironmentVariable("DYNAMODB_ENDPOINT")
-            });
+                ServiceURL = "http://localhost:8001"
+            };
+            _dynamoDbClient = new AmazonDynamoDBClient(dynamoDbConfig);
 
             // Erstelle die DynamoDB-Tabelle, falls sie noch nicht existiert
             CreateTableIfNotExists();
